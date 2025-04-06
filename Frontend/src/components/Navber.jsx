@@ -7,7 +7,7 @@ const Navber = () => {
     const [isVisible, setIsVisible] = useState(false);
     const [user, setUser] = useState(null)
     const handleLogout = () => {
-        fetch("http://localhost:3000/auth/logout", {
+        fetch("https://askify-backend-l0fk.onrender.com/auth/logout", {
             method: "GET",
             credentials: "include"  // ✅ Include cookies for session clearing
         })
@@ -20,7 +20,7 @@ const Navber = () => {
     };
 
     useEffect(() => {
-        fetch("http://localhost:3000/auth/user", { credentials: "include" })
+        fetch("https://askify-backend-l0fk.onrender.com/auth/user", { credentials: "include" })
             .then((res) => res.json())
             .then((data) => {
                 setUser(data)

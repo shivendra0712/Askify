@@ -15,7 +15,7 @@ const Dashboard = () => {
     })
 
     useEffect(() => {
-        fetch("http://localhost:3000/auth/user", { credentials: "include" })
+        fetch("https://askify-backend-l0fk.onrender.com/auth/user", { credentials: "include" })
             .then((res) => res.json())
             // .then((data) => {
             //   setUser(data)
@@ -24,7 +24,7 @@ const Dashboard = () => {
     }, []);
 
     async function codeReview() {
-        const response = await axios.post('http://localhost:3000/ai/get-review', { code })
+        const response = await axios.post('https://askify-backend-l0fk.onrender.com/ai/get-review', { code })
         setReview(response.data)
     }
 

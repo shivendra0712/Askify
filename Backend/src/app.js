@@ -10,7 +10,7 @@ const session = require('express-session')
 app.use(express.json());
 
 app.use(cors({
-  origin: "http://localhost:5173",
+  origin: "https://askify-5sci.onrender.com/",
   methods: "GET,POST,PUT,DELETE", 
   credentials: true,
   allowedHeaders: ["Content-Type", "Authorization"]
@@ -32,7 +32,7 @@ app.use(passport.session());
 passport.use(new GoogleStrategy({
   clientID: process.env.GOOGLE_CLIENT_ID,
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-  callbackURL: 'http://localhost:3000/auth/google/callback',
+  callbackURL: 'https://askify-backend-l0fk.onrender.com/auth/google/callback',
 }, (accessToken, refreshToken, profile, done) => {
   // Here, you would typically find or create a user in your database
   // For this example, we'll just return the profile
@@ -55,8 +55,8 @@ app.get('/auth/google',
 
 app.get("/auth/google/callback",
   passport.authenticate("google", {
-      successRedirect: "http://localhost:5173/dashboard",
-      failureRedirect: "http://localhost:5173"
+      successRedirect: "https://askify-5sci.onrender.com/dashboard",
+      failureRedirect: "https://askify-5sci.onrender.com/"
   }),
   (req, res) => {
       res.redirect(`http://localhost:5173/dashboard?user=${encodeURIComponent(JSON.stringify(req.user))}`);
