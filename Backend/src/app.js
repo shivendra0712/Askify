@@ -59,7 +59,7 @@ app.get("/auth/google/callback",
       failureRedirect: "https://askify-5sci.onrender.com/"
   }),
   (req, res) => {
-      res.redirect(`http://localhost:5173/dashboard?user=${encodeURIComponent(JSON.stringify(req.user))}`);
+      res.redirect(`https://askify-5sci.onrender.com/dashboard?user=${encodeURIComponent(JSON.stringify(req.user))}`);
   }
 );
 
