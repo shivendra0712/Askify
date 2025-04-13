@@ -3,28 +3,25 @@ import { useEffect } from 'react'
 import "prismjs/themes/prism-tomorrow.css"
 import prism from "prismjs"
 import Editor from 'react-simple-code-editor'
-import axios from 'axios'
+import axiosInstance from '../config/axios'
 import Markdorn from 'react-markdown'
 import Navber from './Navber'
 
 const Dashboard = () => {
-    const [review, setReview] = useState(``);
-    const [code, setCode] = useState(`Ask anything`)
+    const [review, setReview] = useState();
+    const [code, setCode] = useState('Ask anything')
     useEffect(() => {
         prism.highlightAll();
     })
 
     useEffect(() => {
-        fetch("https://askify-backend-l0fk.onrender.com/auth/user", { credentials: "include" })
-            .then((res) => res.json())
-            // .then((data) => {
-            //   setUser(data)
-            // })
-            .catch((err) => console.error("Error fetching user:", err));
+        axiosInstance.get("/auth/user")
+        .then(res => console.log("Dashboard user:", res.data))
+        .catch(err => console.error("Dashboard error:", err));      
     }, []);
 
     async function codeReview() {
-        const response = await axios.post('https://askify-backend-l0fk.onrender.com/ai/get-review', { code })
+        const response = await axiosInsatnce.post('/ai/get-review', { code })
         setReview(response.data)
     }
 
@@ -70,4 +67,5 @@ const Dashboard = () => {
 }
 
 export default Dashboard
+
 

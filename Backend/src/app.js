@@ -11,18 +11,12 @@ app.use(express.json());
 
 const allowedOrigins = [
   'http://localhost:5173',
-  'https://askify-backend-l0fk.onrender.com'
+  'https://askify-5sci.onrender.com'
 ];
 
 
 app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
+  origin: allowedOrigins,
   methods: "GET,POST,PUT,DELETE", 
   credentials: true,
   allowedHeaders: ["Content-Type", "Authorization"]
@@ -33,7 +27,11 @@ app.use(session({
     secret: "your_secret_key",
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: false }
+    cookie: {
+      secure:"production",
+      sameSite: "none", // for cross-site cookie
+    }
+    
 }));
 
 // Initialize Passport
@@ -45,7 +43,7 @@ app.use(passport.session());
 passport.use(new GoogleStrategy({
   clientID: process.env.GOOGLE_CLIENT_ID,
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-  callbackURL: 'http://localhost:3000/auth/google/callback',
+  callbackURL: 'https://askify-backend-l0fk.onrender.com/auth/google/callback',
 }, (accessToken, refreshToken, profile, done) => {
   // Here, you would typically find or create a user in your database
   // For this example, we'll just return the profile
@@ -68,12 +66,10 @@ app.get('/auth/google',
 
 app.get("/auth/google/callback",
   passport.authenticate("google", {
-      successRedirect: "http://localhost:5173/dashboard",
-      failureRedirect: "http://localhost:5173"
+      successRedirect: "https://askify-5sci.onrender.com/dashboard",
+      failureRedirect: "https://askify-5sci.onrender.com"
   }),
-  (req, res) => {
-      res.redirect(`http://localhost:5173/dashboard?user=${encodeURIComponent(JSON.stringify(req.user))}`);
-  }
+  
 );
 
 

@@ -1,32 +1,41 @@
 import React from 'react'
 import { IoClose } from "react-icons/io5";
 import { useState, useEffect } from "react";
-
+import axiosInstance from '../config/axios';
+import { useNavigate } from 'react-router-dom'
 
 const Navber = () => {
     const [isVisible, setIsVisible] = useState(false);
     const [user, setUser] = useState(null)
-    const handleLogout = () => {
-        fetch("https://askify-backend-l0fk.onrender.com/auth/logout", {
-            method: "GET",
-            credentials: "include"  // ✅ Include cookies for session clearing
-        })
-            .then((res) => res.json())
-            .then(() => {
-                // setUser(null);
-                window.location.href = "/";  // ✅ Redirect after logout
-            })
-            .catch((err) => console.error("Logout failed:", err));
+
+
+    const navigate = useNavigate()
+
+    const handleLogout = async () => {
+        try {
+            await axiosInstance.get("/auth/logout")
+            console.log("logout successfull");
+            navigate("/")
+
+        } catch (error) {
+            console.log(error)
+        }
     };
 
-    useEffect(() => {
-        fetch("https://askify-backend-l0fk.onrender.com/auth/user", { credentials: "include" })
-            .then((res) => res.json())
-            .then((data) => {
-                setUser(data)
 
-            })
-            .catch((err) => console.error("Error fetching user:", err));
+    async function authUserHandler() {
+        try {
+            const { data } = await axiosInstance.get("/auth/user");
+            setUser(data); // ✅ Set user here
+            console.log("auth user", data);
+        } catch (error) {
+            console.log("auth error", error);
+        }
+    }
+
+    useEffect(() => {
+        
+        authUserHandler();
     }, []);
 
 
@@ -42,7 +51,7 @@ const Navber = () => {
                             onClick={() => setIsVisible(!isVisible)}
                             className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-tr from-red-500 to-pink-500 rounded-full cursor-pointer flex items-center justify-center text-white font-bold text-sm hover:scale-105 transition"
                         >
-                            {user?.displayName?.charAt(0) || "A"}
+                            {user?.displayName || "A"}
                         </div>
                     </div>
                 </div>

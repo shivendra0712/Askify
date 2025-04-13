@@ -7,7 +7,7 @@ export default defineConfig({
   server:{
     proxy: {
       "/auth": {
-        target: "http://localhost:3000",
+        target: "https://askify-backend-l0fk.onrender.com",
         changeOrigin: true,
         secure: false,
       },

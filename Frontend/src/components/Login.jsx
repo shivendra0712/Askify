@@ -3,7 +3,7 @@ import { FcGoogle } from "react-icons/fc";
 
 const Login = () => {
   const handleLogin = () => {
-    window.open("/auth/google", "_self");
+    window.open("https://askify-backend-l0fk.onrender.com/auth/google", "_self");
   };
 
   return (
