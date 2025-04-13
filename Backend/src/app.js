@@ -28,7 +28,7 @@ app.use(session({
     resave: false,
     saveUninitialized: true,
     cookie: {
-      secure:"production",
+      secure:true,
       sameSite: "none", // for cross-site cookie
     }
     
@@ -66,11 +66,14 @@ app.get('/auth/google',
 
 app.get("/auth/google/callback",
   passport.authenticate("google", {
-      successRedirect: "https://askify-5sci.onrender.com/dashboard",
-      failureRedirect: "https://askify-5sci.onrender.com"
+    failureRedirect: "https://askify-5sci.onrender.com"
   }),
-  
+  (req, res) => {
+    // ✅ Authenticated now, redirect manually
+    res.redirect("https://askify-5sci.onrender.com/dashboard");
+  }
 );
+
 
 
 app.get('/',(req,res)=>{
