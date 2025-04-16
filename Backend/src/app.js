@@ -11,7 +11,8 @@ app.use(express.json());
 
 const allowedOrigins = [
   'http://localhost:5173',
-  'https://askify-5sci.onrender.com'
+  'https://askify-5sci.onrender.com',
+  'https://askify-omega.vercel.app'
 ];
 
 
@@ -66,11 +67,11 @@ app.get('/auth/google',
 
 app.get("/auth/google/callback",
   passport.authenticate("google", {
-    failureRedirect: "https://askify-5sci.onrender.com"
+    failureRedirect: "https://askify-omega.vercel.app"
   }),
   (req, res) => {
     // ✅ Authenticated now, redirect manually
-    res.redirect("https://askify-5sci.onrender.com/dashboard");
+    res.redirect("https://askify-omega.vercel.app/dashboard");
   }
 );
 
