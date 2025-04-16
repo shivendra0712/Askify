@@ -53,12 +53,12 @@ passport.use(new GoogleStrategy({
 
 // Serialize/Deserialize
 passport.serializeUser((user, done) => {
-  console.log("Serializing user:", user.id);
+  // console.log("Serializing user:", user.id);
   done(null, user);
 });
 
 passport.deserializeUser((user, done) => {
-  console.log("Deserializing user:", user.id);
+  // console.log("Deserializing user:", user.id);
   done(null, user);
 });
 
@@ -83,9 +83,9 @@ app.get('/', (req, res) => {
 
 // Protected User Route
 app.get('/auth/user', (req, res) => {
-  console.log("Session:", req.session);
+  // console.log("Session:", req.session);
   console.log("User:", req.user);
-  console.log("isAuthenticated:", req.isAuthenticated());
+  // console.log("isAuthenticated:", req.isAuthenticated());
 
   if (req.isAuthenticated()) {
     res.status(200).json(req.user);

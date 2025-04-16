@@ -7,8 +7,6 @@ import { useNavigate } from 'react-router-dom'
 const Navber = () => {
     const [isVisible, setIsVisible] = useState(false);
     const [user, setUser] = useState(null)
-
-
     const navigate = useNavigate()
 
     const handleLogout = async () => {
@@ -22,19 +20,19 @@ const Navber = () => {
         }
     };
 
+    console.log(user)
 
     async function authUserHandler() {
         try {
             const { data } = await axiosInstance.get("/auth/user");
-            setUser(data); // ✅ Set user here
+            setUser(data); 
             console.log("auth user", data);
         } catch (error) {
             console.log("auth error", error);
         }
     }
 
-    useEffect(() => {
-        
+    useEffect(() => { 
         authUserHandler();
     }, []);
 
@@ -51,7 +49,7 @@ const Navber = () => {
                             onClick={() => setIsVisible(!isVisible)}
                             className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-tr from-red-500 to-pink-500 rounded-full cursor-pointer flex items-center justify-center text-white font-bold text-sm hover:scale-105 transition"
                         >
-                            {user?.displayName || "A"}
+                           
                         </div>
                     </div>
                 </div>
