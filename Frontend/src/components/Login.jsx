@@ -1,6 +1,9 @@
 import React from "react";
 import { FcGoogle } from "react-icons/fc";
 
+// window.open("https://askify-backend-l0fk.onrender.com/auth/google", "_self");
+
+
 const Login = () => {
   const handleLogin = () => {
     window.open("https://askify-backend-l0fk.onrender.com/auth/google", "_self");
