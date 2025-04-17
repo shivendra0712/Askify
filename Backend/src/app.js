@@ -34,7 +34,6 @@ app.use(session({
   cookie: {
     httpOnly: true,
     secure: false, // use true in production with HTTPS
-    sameSite: "lax" // more compatible than 'none' on localhost
   }
 }));
 
@@ -69,7 +68,7 @@ app.get('/auth/google',
 
 app.get('/auth/google/callback',
   passport.authenticate('google', {
-    failureRedirect: process.env.Front_URL,
+    // failureRedirect: process.env.Front_URL,
     session:'false',
   }),
   (req, res) => {
