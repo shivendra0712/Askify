@@ -69,7 +69,8 @@ app.get('/auth/google',
 
 app.get('/auth/google/callback',
   passport.authenticate('google', {
-    failureRedirect: process.env.Front_URL
+    failureRedirect: process.env.Front_URL,
+    session:'false',
   }),
   (req, res) => {
     res.redirect(`${process.env.Front_URL}/dashboard`);
