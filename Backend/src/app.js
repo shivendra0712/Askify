@@ -20,10 +20,8 @@ const allowedOrigins = [
 ];
 
 app.use(cors({
-  origin: allowedOrigins,
+  origin: 'https://askify-omega.vercel.app/',
   credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
 // Session Configuration
@@ -33,7 +31,7 @@ app.use(session({
   saveUninitialized: true,
   cookie: {
     httpOnly: true,
-    sameSite:'strict',
+    sameSite:'none',
     secure: true, // use true in production with HTTPS
   }
 }));
