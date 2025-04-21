@@ -20,7 +20,7 @@ const allowedOrigins = [
 ];
 
 app.use(cors({
-  origin: 'https://askify-omega.vercel.app/',
+  origin: 'https://askify-omega.vercel.app',
   credentials: true,
 }));
 
@@ -28,7 +28,7 @@ app.use(cors({
 app.use(session({
   secret: 'your_secret_key',
   resave: false,
-  saveUninitialized: true,
+  saveUninitialized: false,
   cookie: {
     httpOnly: true,
     sameSite:'none',
@@ -66,10 +66,7 @@ app.get('/auth/google',
 );
 
 app.get('/auth/google/callback',
-  passport.authenticate('google', {
-    // failureRedirect: process.env.Front_URL,
-    session:'false',
-  }),
+  passport.authenticate('google'),
   (req, res) => {
     res.redirect(`${process.env.Front_URL}/dashboard`);
   }
